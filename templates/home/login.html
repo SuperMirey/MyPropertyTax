@@ -1,0 +1,98 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% if request.GET.command == 'verification' %}
+
+<div class="card-header bg-transparent pb-5">
+  <div class="text-muted text-center mt-2 mb-3">
+    Registration successful {{ request.GET.email }}. Please verify your account in order to use your account
+    <br><br>
+    Already verified? <a href="{% url 'login' %}">Login</a>  
+
+  </div>
+</div>
+
+{% else %}
+
+
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary border-0 mb-0">
+            <div class="card-header bg-transparent pb-5">
+              <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
+              <div class="btn-wrapper text-center">
+                <a href="#" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="/static/assets/img/icons/common/github.svg"></span>
+                  <span class="btn-inner--text">Github</span>
+                </a>
+                <a href="#" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="/static/assets/img/icons/common/google.svg"></span>
+                  <span class="btn-inner--text">Google</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Or sign in with credentials</small>
+              </div>
+              {% include 'includes/alerts.html' %}
+              <form role="form" action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input type="email" class="form-control" placeholder="Email Address" name="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                  </div>
+                </div>
+                <div class="custom-control custom-control-alternative custom-checkbox">
+                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                  <label class="custom-control-label" for=" customCheckLogin">
+                    <span class="text-muted">Remember me</span>
+                    <br>
+                  </label>
+
+                </div>
+                <br>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                </div>
+                <div class="form-group">
+                  <a href="{% url 'forgotPassword' %}" class="float-right">Forgot password?</a>
+                  <br>
+                </div> <!-- form-group form-check .// -->
+              </form>
+              <p class="text-center mt-4">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    {% endif %}
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}
